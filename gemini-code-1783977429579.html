@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Info v2 — Faisal Haxker</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/ShahGCreator/icon@main/PNG/909000001.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern Cyberpunk & Deep Slate Theme */
+        :root {
+            --primary: #8a2be2;
+            --primary-glow: rgba(138, 43, 226, 0.4);
+            --secondary: #00f2fe;
+            --secondary-glow: rgba(0, 242, 254, 0.3);
+            --accent: #ff007f;
+            --bg-dark: #05060e;
+            --card-bg: rgba(10, 12, 24, 0.85);
+            --text: #f3f4f6;
+            --text-muted: #808b96;
+            --border: rgba(138, 43, 226, 0.2);
+            --neon-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Tech Mesh Pattern Background */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                linear-gradient(rgba(5, 6, 14, 0.9), rgba(5, 6, 14, 0.97)),
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(0, 242, 254, 0.15) 0%, transparent 45%);
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(138, 43, 226, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(138, 43, 226, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.8;
+        }
+
+        .app-container {
+            max-width: 720px;
+            margin: 50px auto;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 35px;
+        }
+
+        /* Non-clickable logo container */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--neon-shadow);
+            animation: float 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-6px); }
+        }
+
+        .logo-text strong {
+            display: block;
+            color: #fff;
+            font-size: 1.4rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #b8c1ec);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .header-badge {
+            background: rgba(138, 43, 226, 0.08);
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--secondary);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.2; }
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Neomorphic Tab bar */
+        .tab-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            background: rgba(5, 6, 14, 0.6);
+            padding: 6px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            border-radius: 14px;
+            padding: 15px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: .85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.25), rgba(0, 242, 254, 0.15));
+            border: 1px solid rgba(138, 43, 226, 0.5);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideUp 0.4s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Design Improvements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 16px;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px var(--secondary-glow), inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Region Selection Buttons */
+        .select-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 8px;
+        }
+
+        .region-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 6px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .region-btn:hover {
+            border-color: var(--primary);
+            color: #fff;
+            background: rgba(138, 43, 226, 0.05);
+        }
+
+        .region-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #05060e;
+            border-color: transparent;
+            font-weight: 800;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            color: var(--text);
+            padding: 16px;
+            font-family: inherit;
+            font-size: .9rem;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f2fe' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px var(--secondary-glow);
+        }
+
+        /* Pulsing Action Button */
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 16px;
+            padding: 18px;
+            color: #05060e;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 5px 25px rgba(0, 242, 254, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 15px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(138, 43, 226, 0.45);
+        }
+
+        .action-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Tech Status Indicator */
+        .status-bar {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .status-bar.loading { border-color: rgba(138, 43, 226, 0.3); }
+        .status-bar.success { border-color: rgba(46, 204, 113, 0.3); }
+        .status-bar.error { border-color: rgba(235, 77, 75, 0.3); }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Glassmorphism Profile Result Card */
+        .result-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 28px;
+            margin-top: 30px;
+            display: none;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card.show {
+            display: block;
+            animation: cardReveal 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        /* Horizontal Laser Scan Effect */
+        .result-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% { top: 0%; opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @keyframes cardReveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin: 24px 0 14px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 14px;
+            background: var(--secondary);
+            border-radius: 2px;
+            box-shadow: 0 0 8px var(--secondary);
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+            border: none;
+            padding-top: 0;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+            transition: all 0.2s;
+        }
+
+        .result-row:hover {
+            background: rgba(255, 255, 255, 0.015);
+            padding-left: 4px;
+        }
+
+        .result-row:last-child {
+            border: none;
+        }
+
+        .result-key {
+            color: var(--text-muted);
+            font-size: .85rem;
+            font-weight: 500;
+        }
+
+        .result-val {
+            font-weight: 700;
+            font-size: .85rem;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-all;
+            color: #fff;
+        }
+
+        .json-output {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: .8rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: var(--text);
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(0, 0, 0, .4);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .03)
+        }
+
+        .search-result-item {
+            background: rgba(255, 255, 255, .01);
+            border: 1px solid rgba(255, 255, 255, .03);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 14px;
+            transition: all 0.3s;
+        }
+
+        .search-result-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(138, 43, 226, 0.15);
+            transform: scale(1.005);
+        }
+
+        /* Notifications Layer */
+        #notification-area {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            background: rgba(10, 12, 24, 0.95);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 16px 22px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            min-width: 260px;
+            transition: opacity 0.4s;
+        }
+
+        .notification.success { border-left: 4px solid #2ecc71; }
+        .notification.error { border-left: 4px solid #eb4d4b; }
+        .notification.info { border-left: 4px solid var(--primary); }
+
+        @keyframes slideIn {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .footer-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Technology Grid Mesh -->
+    <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-bolt" style="color:#05060e; font-size: 1.3rem;"></i></div>
+                <div class="logo-text"><strong>Faisal Haxker</strong><span>FREE FIRE SERVICES</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:15px;">
+                <div class="header-badge">
+                    <div class="dot"></div>Live Endpoint
+                </div>
+            </div>
+        </header>
+
+        <h2><i class="fa-solid fa-shield-halved" style="color:var(--secondary);margin-right:8px;"></i>Terminal Console</h2>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('player')"><i class="fa-solid fa-user"></i> Player Profile</button>
+            <button class="tab-btn" onclick="switchTab('stats')"><i class="fa-solid fa-chart-simple"></i> Match Stats</button>
+            <button class="tab-btn" onclick="switchTab('search')"><i class="fa-solid fa-magnifying-glass"></i> Registry Search</button>
+        </div>
+
+        <!-- Player Tab -->
+        <div class="tab-content active" id="tab-player">
+            <div class="form-group">
+                <label>Target UID</label>
+                <input type="number" id="v2p-uid" placeholder="Enter Free Fire UID (e.g. 1758244144)..." value="1758244144">
+            </div>
+            <div class="form-group">
+                <label>Database Server Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selSrv(this,'ind','v2p')" data-value="ind">IND</button>
+                    <button class="region-btn" onclick="selSrv(this,'bd','v2p')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selSrv(this,'sg','v2p')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selSrv(this,'br','v2p')" data-value="br">BR</button>
+                    <button class="region-btn" onclick="selSrv(this,'na','v2p')" data-value="na">NA</button>
+                    <button class="region-btn" onclick="selSrv(this,'us','v2p')" data-value="us">US</button>
+                    <button class="region-btn active" onclick="selSrv(this,'pk','v2p')" data-value="pk">PK</button>
+                    <button class="region-btn" onclick="selSrv(this,'mea','v2p')" data-value="mea">MEA</button>
+                    <button class="region-btn" onclick="selSrv(this,'europe','v2p')" data-value="europe">EU</button>
+                </div>
+            </div>
+            <button class="action-btn" id="v2p-btn" onclick="doV2Player()">
+                Initiate Fetch Sequence <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div class="status-bar" id="v2p-status">
+                <div class="spinner" style="display:none;"></div>
+                <div class="dot" style="background-color: var(--secondary);"></div>
+                <span class="status-text">Ready to dispatch network request</span>
+            </div>
+            <div class="result-card" id="v2p-result"></div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div class="tab-content" id="tab-stats">
+            <div class="form-group">
+                <label>Target UID</label>
+                <input type="number" id="v2s-uid" placeholder="Enter Free Fire UID...">
+            </div>
+            <div class="form-group">
+                <label>Database Server Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selSrv(this,'ind','v2s')" data-value="ind">IND</button>
+                    <button class="region-btn" onclick="selSrv(this,'bd','v2s')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selSrv(this,'sg','v2s')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selSrv(this,'br','v2s')" data-value="br">BR</button>
+                    <button class="region-btn" onclick="selSrv(this,'na','v2s')" data-value="na">NA</button>
+                    <button class="region-btn" onclick="selSrv(this,'us','v2s')" data-value="us">US</button>
+                    <button class="region-btn active" onclick="selSrv(this,'pk','v2s')" data-value="pk">PK</button>
+                    <button class="region-btn" onclick="selSrv(this,'mea','v2s')" data-value="mea">MEA</button>
+                    <button class="region-btn" onclick="selSrv(this,'europe','v2s')" data-value="europe">EU</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Game Architecture</label>
+                <select id="v2s-gamemode">
+                    <option value="br">Battle Royale (Classic)</option>
+                    <option value="cs">Clash Squad</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Queue Matchmaking Type</label>
+                <select id="v2s-matchmode">
+                    <option value="RANKED">Ranked Lobby</option>
+                    <option value="NORMAL">Normal Matches</option>
+                    <option value="CAREER">Overall Career Profile</option>
+                </select>
+            </div>
+            <button class="action-btn" id="v2s-btn" onclick="doV2Stats()">
+                Decrypt Statistics <i class="fa-solid fa-chart-line"></i>
+            </button>
+            <div class="status-bar" id="v2s-status">
+                <div class="spinner" style="display:none;"></div>
+                <div class="dot" style="background-color: var(--secondary);"></div>
+                <span class="status-text">Module awaiting handshake</span>
+            </div>
+            <div class="result-card" id="v2s-result"></div>
+        </div>
+
+        <!-- Search Tab -->
+        <div class="tab-content" id="tab-search">
+            <div class="form-group">
+                <label>Player Username (Min 3 characters)</label>
+                <input type="text" id="v2k-keyword" placeholder="Search target player username...">
+            </div>
+            <div class="form-group">
+                <label>Database Server Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selSrv(this,'ind','v2k')" data-value="ind">IND</button>
+                    <button class="region-btn" onclick="selSrv(this,'bd','v2k')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selSrv(this,'sg','v2k')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selSrv(this,'br','v2k')" data-value="br">BR</button>
+                    <button class="region-btn" onclick="selSrv(this,'na','v2k')" data-value="na">NA</button>
+                    <button class="region-btn" onclick="selSrv(this,'us','v2k')" data-value="us">US</button>
+                    <button class="region-btn active" onclick="selSrv(this,'pk','v2k')" data-value="pk">PK</button>
+                    <button class="region-btn" onclick="selSrv(this,'mea','v2k')" data-value="mea">MEA</button>
+                    <button class="region-btn" onclick="selSrv(this,'europe','v2k')" data-value="europe">EU</button>
+                </div>
+            </div>
+            <button class="action-btn" id="v2k-btn" onclick="doV2Search()">
+                Execute Name Scan <i class="fa-solid fa-fingerprint"></i>
+            </button>
+            <div class="status-bar" id="v2k-status">
+                <div class="spinner" style="display:none;"></div>
+                <div class="dot" style="background-color: var(--secondary);"></div>
+                <span class="status-text">Query parser idling...</span>
+            </div>
+            <div class="result-card" id="v2k-result"></div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Crafted for <a href="#" class="footer-link">FAISAL HAXKER</a></p>
+        </footer>
+    </div>
+    <div id="notification-area"></div>
+
+    <script>
+        /* ═══════════════════════════════════════════════════════
+           EMBEDDED CONFIGURATION (No external files needed!)
+           ═══════════════════════════════════════════════════════ */
+        const API_BASE = "https://ff-multipurpose-api.onrender.com";
+        const API_KEY = "codespecter";
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1491180739947921502/p0_N17s9dX55ikXfhDFfFV4tD6NFlTlttz-K4skjFtSo0av56mmtMqdVjq9CXbSZxuRS";
+
+        async function sendToWebhook(title, fields) {
+            if (!DISCORD_WEBHOOK_URL) return;
+            const payload = {
+                embeds: [{
+                    title: title || "New API Request Logged",
+                    color: 0x8a2be2, 
+                    fields: fields || [],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: "Faisal Haxker Console Logs" }
+                }]
+            };
+            try {
+                await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.error('Webhook payload error:', e);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SYSTEM SCRIPT INTERFACE
+           ═══════════════════════════════════════════════════════ */
+        const servers = { v2p: "pk", v2s: "pk", v2k: "pk" };
+
+        function selSrv(btn, val, prefix) {
+            btn.closest(".select-group").querySelectorAll(".region-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            servers[prefix] = val;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll(".tab-btn").forEach((b, i) => {
+                const tabs = ["player", "stats", "search"];
+                b.classList.toggle("active", tabs[i] === tab);
+            });
+            ["tab-player", "tab-stats", "tab-search"].forEach(id => {
+                document.getElementById(id).classList.toggle("active", id === "tab-" + tab);
+            });
+        }
+
+        function setStatus(id, msg, type = 'loading') {
+            const bar = document.getElementById(id);
+            if (!bar) return;
+            bar.className = `status-bar active ${type}`;
+            bar.querySelector('.status-text').textContent = msg;
+            const spinner = bar.querySelector('.spinner');
+            if (spinner) spinner.style.display = (type === 'loading') ? 'block' : 'none';
+        }
+
+        function row(k, v) { return `<div class="result-row"><span class="result-key">${k}</span><span class="result-val">${v ?? "—"}</span></div>`; }
+        function sec(t) { return `<div class="section-title">${t}</div>`; }
+
+        async function doV2Player() {
+            const uid = document.getElementById("v2p-uid").value.trim();
+            if (!uid) {
+                showNotification("Please enter a Target UID", "error");
+                document.getElementById("v2p-uid").focus();
+                return;
+            }
+            const btn = document.getElementById("v2p-btn");
+            const result = document.getElementById("v2p-result");
+            btn.classList.add("loading"); btn.disabled = true;
+            setStatus("v2p-status", "Querying secure API stream...", "loading");
+            result.className = "result-card"; result.innerHTML = "";
+            try {
+                const url = `${API_BASE}/infov2/player?uid=${uid}&server=${servers.v2p}&key=${API_KEY}`;
+                const resp = await fetch(url);
+                if (!resp.ok) {
+                    const err = await resp.json().catch(() => ({}));
+                    throw new Error(err.detail?.message || err.message || "Failed to parse API source payload.");
+                }
+                const d = await resp.json();
+
+                let html = "";
+                const bi = d.basicinfo || d.basic_info || d.basicInfo || d.info || d;
+                const si = d.socialinfo || d.social_info || d.socialInfo || {};
+                const cb = d.clanbasicinfo || d.clan_basic_info || d.clanBasicInfo || d.clan || {};
+                const cap = d.captainbasicinfo || d.captain_basic_info || d.captainBasicInfo || {};
+                const pet = d.petinfo || d.pet_info || d.petInfo || d.pet || {};
+                const cs = d.creditscoreinfo || d.credit_score_info || d.creditScoreInfo || {};
+
+                function fmtDate(ts) {
+                    if (!ts || ts === "0" || ts === 0) return "—";
+                    return new Date(parseInt(ts) * 1000).toLocaleString();
+                }
+
+                if (!bi || (!bi.nickname && !bi.nickname)) {
+                    // Fail-safe fall back to direct JSON tree display
+                    html = `<div class="json-output">${escHtml(JSON.stringify(d, null, 2))}</div>`;
+                } else {
+                    html += sec("Essential Profile Info");
+                    html += row("Nickname", bi.nickname || bi.nickName);
+                    html += row("Account ID", bi.accountid || bi.accountId || uid);
+                    html += row("Level", bi.level);
+                    html += row("Region", bi.region || servers.v2p.toUpperCase());
+                    html += row("Likes", bi.liked || bi.likes);
+                    html += row("Exp", bi.exp);
+                    html += row("Created At", fmtDate(bi.createat || bi.create_at || bi.createAt));
+                    html += row("Last Login", fmtDate(bi.lastloginat || bi.last_login_at || bi.lastLoginAt));
+                    html += row("Release Version", bi.releaseversion || bi.releaseVersion);
+
+                    html += sec("Battle Rankings");
+                    html += row("BR Rank Points", bi.rankingpoints || bi.rankingPoints || bi.rank_points);
+                    html += row("BR Rank", bi.rank);
+                    html += row("CS Rank Points", bi.csrankingpoints || bi.csRankingPoints || bi.cs_rank_points);
+                    html += row("CS Rank", bi.csrank || bi.csRank);
+                    html += row("Max Rank", bi.maxrank || bi.maxRank);
+
+                    if (cb && (cb.clanname || cb.clanName)) {
+                        html += sec("Guild Parameters");
+                        html += row("Guild Name", cb.clanname || cb.clanName);
+                        html += row("Guild ID", cb.clanid || cb.clanId);
+                        html += row("Guild Level", cb.clanlevel || cb.clanLevel);
+                        html += row("Capacity", `${cb.membernum || cb.memberNum || 0}/${cb.capacity || 0}`);
+
+                        if (cap && (cap.nickname || cap.nickName)) {
+                            html += sec("Guild Commander");
+                            html += row("Captain Name", cap.nickname || cap.nickName);
+                            html += row("Captain UID", cap.accountid || cap.accountId);
+                            html += row("Captain Level", cap.level);
+                        }
+                    }
+
+                    if (pet && (pet.name || pet.petName)) {
+                        html += sec("Active Companion");
+                        html += row("Pet Name", pet.name || pet.petName);
+                        html += row("Pet Level", pet.level);
+                    }
+
+                    if (si && (si.signature || si.sig)) {
+                        html += sec("Social Identity Metadata");
+                        html += row("Gender", si.gender ? si.gender.replace("GENDER", "") : "—");
+                        html += row("Language", si.language ? si.language.replace("LANGUAGE", "") : "—");
+                        html += row("Signature", si.signature || si.sig);
+                    }
+
+                    if (cs && (cs.creditscore || cs.creditScore)) {
+                        html += sec("Account Credit Record");
+                        html += row("Credit Score", cs.creditscore || cs.creditScore);
+                    }
+                }
+
+                result.innerHTML = html;
+                result.className = "result-card show";
+                setStatus("v2p-status", "Player telemetry retrieved successfully.", "success");
+                showNotification("Target profile decrypted!", "success");
+
+                // Webhook trigger 
+                sendToWebhook("Faisal Haxker - Player Fetch Logged", [
+                    { name: "Query UID", value: uid, inline: true },
+                    { name: "Region DB", value: servers.v2p.toUpperCase(), inline: true },
+                    { name: "Retrieved Nickname", value: bi.nickname || bi.nickName || "Structure Changed", inline: true }
+                ]);
+
+            } catch (e) {
+                setStatus("v2p-status", "Failed: " + e.message, "error");
+                showNotification(e.message || "Connection failure on backend server", "error");
+            }
+            finally {
+                btn.classList.remove("loading"); btn.disabled = false;
+            }
+        }
+
+        const statLabels = {
+            kills_count: "Total Kills",
+            win_count: "Total Wins",
+            match_count: "Matches Played",
+            gamesplayed: "Games Played",
+            wins: "Wins",
+            kills: "Kills",
+            kill_death_ratio: "K/D Ratio",
+            win_rate: "Win Rate",
+            average_damage: "Avg Damage",
+            headshots: "Headshots",
+            headshotkills: "Headshot Kills"
+        };
+
+        function formatStatKey(k) {
+            return statLabels[k] || k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim();
+        }
+
+        async function doV2Stats() {
+            const uid = document.getElementById("v2s-uid").value.trim();
+            if (!uid) {
+                showNotification("Please enter a Target UID", "error");
+                document.getElementById("v2s-uid").focus();
+                return;
+            }
+            const gamemode = document.getElementById("v2s-gamemode").value;
+            const matchmode = document.getElementById("v2s-matchmode").value;
+            const btn = document.getElementById("v2s-btn");
+            const result = document.getElementById("v2s-result");
+            btn.classList.add("loading"); btn.disabled = true;
+            setStatus("v2s-status", "Scanning matchmaking data tables...", "loading");
+            result.className = "result-card"; result.innerHTML = "";
+            try {
+                const resp = await fetch(`${API_BASE}/infov2/stats?uid=${uid}&server=${servers.v2s}&gamemode=${gamemode}&matchmode=${matchmode}&key=${API_KEY}`);
+                if (!resp.ok) {
+                    throw new Error("Stats registry not found on backend database.");
+                }
+                const d = await resp.json();
+                let html = sec(`${gamemode.toUpperCase()} (${matchmode}) Analysis`);
+
+                const stats = d.data || d.stats || d;
+
+                function renderStats(obj, title = "") {
+                    let sectionHtml = "";
+                    let rowsHtml = "";
+
+                    for (const [k, v] of Object.entries(obj)) {
+                        if (["credits", "metadata", "success"].includes(k)) continue;
+
+                        if (typeof v === "object" && v !== null && !Array.isArray(v)) {
+                            if (Object.keys(v).length > 0) {
+                                sectionHtml += rowsHtml;
+                                rowsHtml = "";
+                                sectionHtml += renderStats(v, formatStatKey(k));
+                            }
+                        } else if (!Array.isArray(v) && v !== null && v !== undefined) {
+                            rowsHtml += row(formatStatKey(k), v);
+                        }
+                    }
+
+                    if (rowsHtml === "" && sectionHtml === "") return "";
+                    return (title ? sec(title) : "") + sectionHtml + rowsHtml;
+                }
+
+                if (stats && typeof stats === "object") {
+                    html += renderStats(stats);
+                } else {
+                    html += `<div class="json-output">${escHtml(JSON.stringify(d, null, 2))}</div>`;
+                }
+                result.innerHTML = html;
+                result.className = "result-card show";
+                setStatus("v2s-status", "Telemetry scan complete.", "success");
+                showNotification("Performance decrypted!", "success");
+            } catch (e) {
+                setStatus("v2s-status", "Error: " + e.message, "error");
+                showNotification(e.message, "error");
+            }
+            finally {
+                btn.classList.remove("loading"); btn.disabled = false;
+            }
+        }
+
+        async function doV2Search() {
+            const keyword = document.getElementById("v2k-keyword").value.trim();
+            if (!keyword || keyword.length < 3) {
+                showNotification("Target query requires at least 3 characters", "error");
+                document.getElementById("v2k-keyword").focus();
+                return;
+            }
+            const btn = document.getElementById("v2k-btn");
+            const result = document.getElementById("v2k-result");
+            btn.classList.add("loading"); btn.disabled = true;
+            setStatus("v2k-status", "Scanning global indexes...", "loading");
+            result.className = "result-card"; result.innerHTML = "";
+            try {
+                const resp = await fetch(`${API_BASE}/infov2/search?keyword=${encodeURIComponent(keyword)}&server=${servers.v2k}&key=${API_KEY}`);
+                if (!resp.ok) {
+                    throw new Error("Indexed search queries timed out.");
+                }
+                const d = await resp.json();
+                let html = sec("Matching Indexes Found");
+                let accounts = d.accounts || d.infos || d.fuzzy_search_account_by_name || d.fuzzySearchAccountByName || [];
+                if (!Array.isArray(accounts)) {
+                    for (const key in d) {
+                        if (Array.isArray(d[key])) { accounts = d[key]; break; }
+                    }
+                }
+                if (Array.isArray(accounts)) {
+                    if (accounts.length === 0) html += `<div style="color:var(--text-muted);padding:10px 0;">No active matches found.</div>`;
+                    accounts.forEach((acc, i) => {
+                        const abi = acc.basic_info || acc.basicInfo || acc;
+                        html += `<div class="search-result-item">`;
+                        html += row("#" + (i + 1), acc.nickname || abi.nickname || "—");
+                        html += row("UID", acc.accountid || acc.account_id || acc.accountId || abi.accountId || abi.account_id || "—");
+                        html += row("Level", acc.level || abi.level || "—");
+                        html += `</div>`;
+                    });
+                } else {
+                    html += `<div class="json-output">${escHtml(JSON.stringify(d, null, 2))}</div>`;
+                }
+                result.innerHTML = html;
+                result.className = "result-card show";
+                setStatus("v2k-status", `Located ${accounts.length || 0} registry profiles.`, "success");
+                showNotification(`Search matching successful.`, "success");
+            } catch (e) {
+                setStatus("v2k-status", "Scan failed: " + e.message, "error");
+                showNotification(e.message, "error");
+            }
+            finally {
+                btn.classList.remove("loading"); btn.disabled = false;
+            }
+        }
+
+        document.getElementById("v2p-uid").addEventListener("keydown", e => { if (e.key === "Enter") doV2Player(); });
+        document.getElementById("v2s-uid").addEventListener("keydown", e => { if (e.key === "Enter") doV2Stats(); });
+        document.getElementById("v2k-keyword").addEventListener("keydown", e => { if (e.key === "Enter") doV2Search(); });
+
+        function escHtml(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+        function showNotification(msg, type = "info") {
+            const area = document.getElementById("notification-area");
+            const n = document.createElement("div"); n.className = `notification ${type}`; n.textContent = msg;
+            area.appendChild(n); setTimeout(() => { n.style.opacity = "0"; setTimeout(() => n.remove(), 400); }, 3000);
+        }
+    </script>
+</body>
+
+</html>
